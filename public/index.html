@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/css/signin.css">
 
   <script src="/js/jquery-1.11.2.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
@@ -17,5 +18,15 @@
 
 </head>
 <body ng-controller="mainController">
-
-<h1>Hola sizas</h1></body></html>
+<div class="container">
+  <form class="form-signin">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputEmail" class="sr-only">Username</label>
+    <input type="text" id="inputEmail" class="form-control" placeholder="Username" required autofocus ng-model="user.username">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="user.password">
+    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="reqToken(user)">Sign in</button>
+  </form>
+</div>
+</body>
+</html>
