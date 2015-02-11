@@ -1,0 +1,17 @@
+{
+  "name": "angular-exercise",
+  "version": "0.0.1",
+  "description": "Exercise using AngularJS and NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Daniel Aristizabal Romero",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "ecstatic": "^0.5.8",
+    "union": "^0.4.4"
+  }
+}
