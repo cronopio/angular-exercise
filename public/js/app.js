@@ -5,11 +5,19 @@ function mainController ($scope, $http) {
 
   $scope.reqToken = function (creds) {
     $scope.user = angular.copy(creds);
-    console.log('Aqui', $scope.user);
     $http.post('/login', $scope.user)
       .success(function (data) {
         $scope.user.auth = data;
-        dibujarMapa();
+        if (data.token) {
+          $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
+          $http.get('/locations').success(function (data, status, headers, config) {
+            dibujarMapa(data);
+          })
+        } else {
+          var msg = '<p>Invalid Credentials.</p><p><a href="/">Click here to try again.</a></p>' 
+          $('body').empty();
+          $('body').append($('<div></div>').addClass('alert alert-danger').attr('role', 'alert').css('width', '70%').css('margin', '0px auto').html(msg));
+        }
       })
       .error(function (data) {
         console.log('Error', data);
@@ -17,13 +25,42 @@ function mainController ($scope, $http) {
   }
 }
 
-function dibujarMapa () {
+function dibujarMapa (data) {
   $('body').empty();
   $('html, body').css('height', '100%').css('width', '100%');
   $('body').append($('<div id=\"map-canvas\"></div>').css('height', '100%').css('width', '100%').css('margin', '0px').css('padding', '0px'));
-  var a = new google.maps.Map(document.getElementById('map-canvas'), {
+
+  var latlngbounds = new google.maps.LatLngBounds();
+  var points = data.map(function (p) {
+    return new google.maps.LatLng(p.latitude, p.longitude);
+  });
+
+  for (var i = 0, LtLgLen = points.length; i < LtLgLen; i++) {
+    latlngbounds.extend(points[i]);
+  }
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 13,
-    center: new google.maps.LatLng(37.774546, -122.433523),
+    center: latlngbounds.getCenter(),
     mapTypeId: google.maps.MapTypeId.SATELLITE
   });
+  map.setCenter(latlngbounds.getCenter());
+  map.fitBounds(latlngbounds);
+
+  var pointArray = new google.maps.MVCArray(points);
+
+  var heatmap = new google.maps.visualization.HeatmapLayer({
+    data: pointArray
+    });
+
+  heatmap.setMap(map);
 }
+
+angular.module('cookiesExample', ['ngCookies'])
+.controller('ExampleController', ['$cookies', function($cookies) {
+    // Retrieving a cookie
+   var favoriteCookie = $cookies.myFavorite;
+   console.log('Aja',favoriteCookie);
+     // Setting a cookie
+   $cookies.myFavorite = 'oatmeal';
+}]);
