@@ -1,6 +1,6 @@
-var app = angular.module('exerciseHeatMap', []);
+var app = angular.module('exerciseHeatMap', ['ngCookies']);
 
-function mainController ($scope, $http) {
+function mainController ($scope, $http, $cookies) {
   $scope.user = {};
 
   $scope.reqToken = function (creds) {
@@ -9,6 +9,7 @@ function mainController ($scope, $http) {
       .success(function (data) {
         $scope.user.auth = data;
         if (data.token) {
+          $cookies.auth = data.token;
           $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
           $http.get('/locations').success(function (data, status, headers, config) {
             dibujarMapa(data);
@@ -22,6 +23,14 @@ function mainController ($scope, $http) {
       .error(function (data) {
         console.log('Error', data);
       });
+  }
+
+  var authToken = $cookies.auth;
+  if (authToken) {
+    $http.defaults.headers.common.Authorization = 'Bearer ' + authToken;
+    $http.get('/locations').success(function (data, status, headers, config) {
+      dibujarMapa(data);
+    })
   }
 }
 
@@ -56,11 +65,3 @@ function dibujarMapa (data) {
   heatmap.setMap(map);
 }
 
-angular.module('cookiesExample', ['ngCookies'])
-.controller('ExampleController', ['$cookies', function($cookies) {
-    // Retrieving a cookie
-   var favoriteCookie = $cookies.myFavorite;
-   console.log('Aja',favoriteCookie);
-     // Setting a cookie
-   $cookies.myFavorite = 'oatmeal';
-}]);
