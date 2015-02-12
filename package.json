@@ -1,6 +1,6 @@
 {
   "name": "angular-exercise",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Exercise using AngularJS and NodeJS",
   "main": "index.js",
   "scripts": {
