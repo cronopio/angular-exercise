@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "echo \"Use node index.js to run the app\""
   },
   "author": "Daniel Aristizabal Romero",
   "license": "ISC",
   "dependencies": {
     "colors": "^1.0.3",
     "ecstatic": "^0.5.8",
+    "optimist": "^0.6.1",
     "union": "^0.4.4"
   }
 }
