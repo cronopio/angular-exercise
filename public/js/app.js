@@ -33,7 +33,7 @@ function mainController ($scope, $http, $cookieStore) {
             .addClass('alert alert-danger')
             .attr('role', 'alert')
             .css('width', '70%')
-            .css('margin', '2em auto')
+            .css('margin', '4em auto')
             .html(msg));
         }
       })
@@ -46,10 +46,15 @@ function mainController ($scope, $http, $cookieStore) {
     var btn = $('<button></button>').addClass('btn btn-lg btn-primary btn-block').html('Logout');
     btn.css('width', '80%').css('margin', '1em auto');
     btn.click(function () {
-      console.log($cookieStore.get('auth'));
-      $cookieStore.put('auth', false);
-      //$cookieStore.remove('auth');
-      console.log($cookieStore.get('auth'));
+      $cookieStore.remove('auth');
+      var msg = '<p>Session closed successfully.</p><p><a href="/">Click here to log in.</a></p>';
+      $('#main').empty();
+      $('#main').append($('<div></div>')
+        .addClass('alert alert-success')
+        .attr('role', 'alert')
+        .css('width', '70%')
+        .css('margin', '4em auto')
+        .html(msg));
     });
     $('#main').prepend(btn);
   }
