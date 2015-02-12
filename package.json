@@ -13,6 +13,7 @@
     "colors": "^1.0.3",
     "ecstatic": "^0.5.8",
     "optimist": "^0.6.1",
+    "request": "^2.53.0",
     "union": "^0.4.4"
   }
 }

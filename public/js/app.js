@@ -8,7 +8,7 @@ function mainController ($scope, $http) {
     console.log('Aqui', $scope.user);
     $http.post('/login', $scope.user)
       .success(function (data) {
-        console.log('Desde el server', data);
+        $scope.user.auth = data;
       })
       .error(function (data) {
         console.log('Error', data);
