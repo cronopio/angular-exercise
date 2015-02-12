@@ -14,5 +14,5 @@ npm install
 ## Run Server
 
 ```
-npm start
+node index.js --api http://urlotherapi.com
 ```
