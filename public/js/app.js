@@ -4,6 +4,7 @@ function mainController ($scope, $http, $cookies) {
   $scope.user = {};
 
   $scope.reqToken = function (creds) {
+    loadingImg();
     $scope.user = angular.copy(creds);
     $http.post('/login', $scope.user)
       .success(function (data) {
@@ -27,6 +28,7 @@ function mainController ($scope, $http, $cookies) {
 
   var authToken = $cookies.auth;
   if (authToken) {
+    loadingImg();
     $http.defaults.headers.common.Authorization = 'Bearer ' + authToken;
     $http.get('/locations').success(function (data, status, headers, config) {
       dibujarMapa(data);
@@ -65,3 +67,11 @@ function dibujarMapa (data) {
   heatmap.setMap(map);
 }
 
+function loadingImg () {
+  var img = $('<div></div>')
+    .css('background', 'url(/img/ajax-loader.gif) no-repeat center center')
+    .css('width', '100%').css('height', '100%')
+  $('body').empty();
+  $('html, body').css('height', '100%').css('width', '100%');
+  $('body').append(img);
+}
