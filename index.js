@@ -2,7 +2,7 @@ var colors = require('colors'),
     argv = require('optimist').string('api').argv;
     server = require('./lib/server.js');
 
-var PORT = 3000;
+var PORT = 3030;
 
 if (argv.h || argv.help || !argv.api) {
   console.log([
