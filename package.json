@@ -16,5 +16,6 @@
     "optimist": "^0.6.1",
     "request": "^2.53.0",
     "union": "^0.4.4"
-  }
+  },
+  "repository": "https://github.com/cronopio/angular-exercise.git"
 }
