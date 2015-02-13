@@ -18,7 +18,7 @@ if (argv.h || argv.help || !argv.api) {
 
 server.createServer({
   headers: {
-    'x-powered-by': 'Backend for the Exercise v0.0.1'
+    'x-powered-by': 'Backend for the Exercise v0.2.0'
   },
   api: argv.api
 }).listen(PORT, function () {
